@@ -12,43 +12,36 @@
     "main": {
       "type": "blog",
       "blocks": {
-        "product_D6Tn4z": {
+        "product_BKYRwH": {
           "type": "product",
           "settings": {
-            "product": "chain-bracelet"
+            "product": "exclusive-boy-s-panjabi-copy"
           }
         },
-        "product_cLBjRN": {
+        "product_YiXP3P": {
           "type": "product",
           "settings": {
-            "product": "leather-anchor"
+            "product": "boy-s-panjabi-copy"
           }
         },
-        "product_qedKP4": {
+        "product_jG3wmc": {
           "type": "product",
           "settings": {
-            "product": "bedside-table"
+            "product": "boy-s-panjabi-copy-1"
           }
         },
-        "product_YJJjTf": {
+        "product_VrURGL": {
           "type": "product",
           "settings": {
-            "product": "black-bean-bag"
-          }
-        },
-        "product_UTDQpX": {
-          "type": "product",
-          "settings": {
-            "product": "chequered-red-shirt"
+            "product": "boy-s-panjabi-copy-2"
           }
         }
       },
       "block_order": [
-        "product_D6Tn4z",
-        "product_cLBjRN",
-        "product_qedKP4",
-        "product_YJJjTf",
-        "product_UTDQpX"
+        "product_BKYRwH",
+        "product_YiXP3P",
+        "product_jG3wmc",
+        "product_VrURGL"
       ],
       "settings": {
         "featured_article": "news/night-life-in-big-cities"

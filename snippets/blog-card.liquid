@@ -1,0 +1,34 @@
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-center ">
+  <div class="col-span-1 ">
+    <img
+      src="{{ article.image | image_url }}"
+      width=""
+      height=""
+      class="w-full"
+      alt="{{ article.title }}">
+  </div>
+  <div class="col-span-1 md:col-span-2">
+    <div>
+      <h2 class="text-3xl">{{ article.title }}</h2>
+      <div>
+        {{ article.content | truncate: 200 }}
+      </div>
+    </div>
+    <div class="mb-1  flex flex-col md:flex-row text-gray-400 gap-4 justify-start items-center italic ">
+      <span class="text-gray-400">
+        On
+        {{ article.published_at | date: "%b %d, %y" }}
+      </span>
+      <span>
+        <span class="text-gray-400">by</span>
+        <span class="text-gray-800 font-semibold">{{ article.author }}</span>
+      </span>
+      <span class="hidden md:inline-block">
+        /
+      </span>
+      <span class="text-gray-400">
+        {{ article.comments.size }} comments
+      </span>
+    </div>
+  </div>
+</div>

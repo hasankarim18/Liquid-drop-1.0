@@ -1,0 +1,59 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "name": "header",
+  "type": "header",
+  "sections": {
+    "header": {
+      "type": "header",
+      "blocks": {
+        "mega_menu_1_i4hxD8": {
+          "type": "mega_menu_1",
+          "settings": {
+            "mega_menu_1_title": "Featured Collections",
+            "slot_1_image": "shopify://shop_images/blue-tux1.jpg",
+            "slot_1_link_title": "Men's Collection",
+            "menu_1_link_url": "shopify://collections/mens-collections",
+            "slot_2_image": "shopify://shop_images/stylish-summer-necklace_925x_6b3473b8-1043-4a22-827f-6ebc901c0efd.jpg",
+            "slot_2_link_title": "Women's Collection",
+            "menu_2_link_url": "shopify://collections/womens-collections",
+            "slot_3_image": "shopify://shop_images/indoor_outdoor_adobestock_slavun_m24_full_m36_1025.jpg",
+            "slot_3_link_title": "Interior decoration",
+            "menu_3_link_url": "shopify://collections/indoor",
+            "mega_menu_1_product": "silk-summer-top"
+          }
+        },
+        "mega_menu_1_8Wxrrz": {
+          "type": "mega_menu_1",
+          "settings": {
+            "mega_menu_1_title": "Mega menu 2",
+            "slot_1_link_title": "Slot 1 link title",
+            "menu_1_link_url": "",
+            "slot_2_link_title": "Slot 2 link title",
+            "menu_2_link_url": "",
+            "slot_3_link_title": "Slot 3 link title",
+            "menu_3_link_url": "",
+            "mega_menu_1_product": ""
+          }
+        }
+      },
+      "block_order": [
+        "mega_menu_1_i4hxD8",
+        "mega_menu_1_8Wxrrz"
+      ],
+      "settings": {
+        "menu": "main-menu"
+      }
+    }
+  },
+  "order": [
+    "header"
+  ]
+}

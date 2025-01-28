@@ -1,0 +1,193 @@
+<header class="border-b-2 relative">
+  <div class="header">
+    <div class="my_container">
+      <div class="grid grid-cols-5 ">
+        <div class="logo col-span-1 py-5">{{ shop.name }}</div>
+        <div class="flex justify-center col-span-3 items-center">
+          <ul class=" flex justify-center items-center gap-4">
+            {% for link in section.settings.menu.links %}
+              <li>
+                <a class="link py-5 hover:link-neutral" href="{{ link.url }}">{{ link.title }}</a>
+              </li>
+            {% endfor %}
+            {% for block in section.blocks %}
+              {% case block.type %}
+                {% when 'mega_menu_1' %}
+                  <li data-mega-menu-trigger class="py-5">
+
+                    <span class="link hover:link-neutral">
+                      {{ block.settings.mega_menu_1_title }}
+                    </span>
+                  </li>
+                  {% render 'mega-menu-1-content'
+                    , section: section
+                    , block: block %}
+                {% else %}
+                  <li class="hidden"></li>
+              {% endcase %}
+            {% endfor %}
+          </ul>
+        </div>
+        <div class="icon-group col-span-1 flex justify-end items-center">icons</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+{% schema %}
+  {
+    "name": "Header Main",
+    "tag": "header",
+    "settings": [
+      {
+        "type": "link_list",
+        "id": "menu",
+        "label": "Header Menu"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "mega_menu_1",
+        "name": "Mega menu 1",
+        "limit": 2,
+        "settings": [
+          {
+            "type": "text",
+            "id": "mega_menu_1_title",
+            "label": "Mega menu 1 title",
+            "default": "Mega menu 1 title"
+          },
+          {
+            "type": "header",
+            "content": "Slot 1"
+          },
+          {
+            "type": "image_picker",
+            "id": "slot_1_image",
+            "label": "Select Image"
+          },
+          {
+            "type": "text",
+            "id": "slot_1_link_title",
+            "label": "Slot 1 link title",
+            "default": "Slot 1 link title"
+          },
+          {
+            "type": "url",
+            "id": "slot_1_link_url",
+            "label": "Menu 1 link url"
+
+          },
+          {
+            "type": "header",
+            "content": "Slot 2"
+          },
+          {
+            "type": "image_picker",
+            "id": "slot_2_image",
+            "label": "Select Image"
+          },
+          {
+            "type": "text",
+            "id": "slot_2_link_title",
+            "label": "Slot 2 link title",
+            "default": "Slot 2 link title"
+          },
+          {
+            "type": "url",
+            "id": "menu_2_link_url",
+            "label": "Menu 2 link url"
+          },
+          {
+            "type": "header",
+            "content": "Slot 3"
+          },
+          {
+            "type": "image_picker",
+            "id": "slot_3_image",
+            "label": "Select Image"
+          },
+          {
+            "type": "text",
+            "id": "slot_3_link_title",
+            "label": "Slot 3 link title",
+            "default": "Slot 3 link title"
+          },
+          {
+            "type": "url",
+            "id": "menu_3_link_url",
+            "label": "Menu 3 link url"
+          },
+          {
+            "type": "product",
+            "id": "mega_menu_1_product",
+            "label": "Select a menu featured product"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Header Main",
+        "settings": {}
+      }
+    ]
+  }
+{% endschema %}
+
+<style>
+  .mega_menu_top_100 {
+    top: 60px;
+  }
+
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const triggerMegaMenu_1 = () => {
+    const megaMenuTriggers = document.querySelectorAll('[data-mega-menu-trigger]');
+  
+    megaMenuTriggers.forEach((trigger) => {
+        // Add hover functionality
+        trigger.addEventListener('mouseover', () => {
+            // Find the associated menu (assumes it's the next sibling)
+            const associatedMenu = trigger.nextElementSibling;
+  
+            if (associatedMenu) {
+                associatedMenu.classList.remove('hidden'); // Show the menu
+                setTimeout(() => {
+                  associatedMenu.classList.add('mega_menu_top_100')
+                }, 10);
+            }
+        });
+  
+        trigger.addEventListener('mouseout', () => {
+            // Find the associated menu (assumes it's the next sibling)
+            const associatedMenu = trigger.nextElementSibling;
+  
+            if (associatedMenu) {
+                associatedMenu.classList.add('hidden'); // Hide the menu
+                associatedMenu.classList.remove('mega_menu_top_100')
+            }
+        });
+  
+        // Ensure the menu hides when the user leaves the menu area
+        const associatedMenu = trigger.nextElementSibling;
+        if (associatedMenu) {
+            associatedMenu.addEventListener('mouseover', () => {
+                associatedMenu.classList.remove('hidden'); // Keep it visible
+                associatedMenu.classList.add('mega_menu_top_100')
+            });
+  
+            associatedMenu.addEventListener('mouseout', () => {
+                associatedMenu.classList.add('hidden'); // Hide it when the mouse leaves
+                associatedMenu.classList.remove('mega_menu_top_100')
+            });
+        }
+    });
+  }
+  
+  triggerMegaMenu_1()
+  
+  });
+</script>

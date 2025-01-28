@@ -1,0 +1,94 @@
+<div>
+  <div class="my_container">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+
+    <main class="flex items-center justify-center w-full min-h-screen py-8 text-gray-900 page md:py-16 ">
+      <div class="relative flex flex-col items-center w-full gap-8 px-8 md:px-18 xl:px-40 md:gap-16">
+        {% comment %} block loop starnt {% endcomment %}
+        {% for block in section.blocks %}
+          {% case block.type %}
+            {% when 'title' %}
+              <h1 class="text-9xl md:text-[300px] w-full select-none  text-center font-black  text-gray-400">
+                {{ block.settings.title }}</h1>
+            {% when 'description' %}
+              <p class="text-3xl font-bold capitalize">{{ block.settings.description }}</p>
+            {% when 'link' %}
+              <div class="flex justify-center cursor-pointer flex-col  w-full gap-8 md:flex-row md:gap-32 xl:px-16">
+                <a href="{{ block.settings.link_url }}" class="rounded flex w-full md:w-fit group items-center gap-4 justify-center border-2 border-green-500 font-semibold hover:bg-green-500 p-3 md:p-6 capitalize focus:outline-none hover:scale-105 active:scale-90 shadow-lg hover:shadow-xl ">
+                  <span class="material-symbols-outlined">home</span>
+                  {{ block.settings.link_title }}
+                </a>
+              </div>
+            {% else %}
+              <div>
+                <h1 class="text-9xl md:text-[300px] w-full select-none  text-center font-black  text-gray-400">
+                  404</h1>
+              </div>
+          {% endcase %}
+        {% endfor %}
+
+
+      {% comment %} loop end {% endcomment %}
+      </div>
+    </main>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "404 page",
+    "tag": "section",
+    "settings": [],
+    "blocks": [
+      {
+        "type": "title",
+        "name": "Title",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Write page title",
+            "default": "404"
+
+          }
+        ]
+      }, {
+        "type": "description",
+        "name": "Description",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "text",
+            "id": "description",
+            "label": "Write short description",
+            "default": "You have discoverd a secret place"
+          }
+        ]
+      }, {
+        "type": "link",
+        "name": "Link Title",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "text",
+            "id": "link_title",
+            "label": "Link Title",
+            "default": " Go back to Home Page "
+          }, {
+            "type": "url",
+            "id": "link_url",
+            "label": "Give link url",
+            "default": "/"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "404 page",
+        "settings": {}
+      }
+    ]
+  }
+{% endschema %}

@@ -1,0 +1,22 @@
+{%- liquid
+-%}
+<div>
+  <ul>
+    {% for block in section.blocks %}
+      {%- assign product = block.settings.product -%}
+      <li class="mb-10">
+        <div>
+          {%- if product.images.size > 0 -%}
+            <img
+              src="{{ product.images.first |  image_url  }}"
+              width=""
+              height=""
+              class="w-full h-[200px] "
+              alt="">
+          {%- endif -%}
+        </div>
+        {{ product.title }}
+      </li>
+    {% endfor %}
+  </ul>
+</div>

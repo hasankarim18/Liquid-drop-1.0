@@ -1,0 +1,61 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "blog",
+      "blocks": {
+        "product_D6Tn4z": {
+          "type": "product",
+          "settings": {
+            "product": "chain-bracelet"
+          }
+        },
+        "product_cLBjRN": {
+          "type": "product",
+          "settings": {
+            "product": "leather-anchor"
+          }
+        },
+        "product_qedKP4": {
+          "type": "product",
+          "settings": {
+            "product": "bedside-table"
+          }
+        },
+        "product_YJJjTf": {
+          "type": "product",
+          "settings": {
+            "product": "black-bean-bag"
+          }
+        },
+        "product_UTDQpX": {
+          "type": "product",
+          "settings": {
+            "product": "chequered-red-shirt"
+          }
+        }
+      },
+      "block_order": [
+        "product_D6Tn4z",
+        "product_cLBjRN",
+        "product_qedKP4",
+        "product_YJJjTf",
+        "product_UTDQpX"
+      ],
+      "settings": {
+        "featured_article": "discounts/discount-of-the-year"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

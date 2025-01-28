@@ -1,0 +1,21 @@
+* {
+  box-sizing: border-box;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .my_container {
+    width: 100%;
+    max-width: 1280px;
+    padding-left: 40px;
+    padding-right: 40px;
+    margin: 0 auto;
+  }
+
+  .zoom_hover {
+    @apply hover:scale-105 transition-transform duration-1000;
+  }
+}

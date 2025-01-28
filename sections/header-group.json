@@ -14,23 +14,10 @@
     "header": {
       "type": "header",
       "blocks": {
-        "mega_menu_1_i4hxD8": {
-          "type": "mega_menu_1",
-          "settings": {
-            "mega_menu_1_title": "Featured Collections",
-            "slot_1_link_title": "Men's Collection",
-            "slot_1_link_url": "",
-            "slot_2_link_title": "Women's Collection",
-            "menu_2_link_url": "shopify://collections/womens-collections",
-            "slot_3_link_title": "Interior decoration",
-            "menu_3_link_url": "shopify://collections/indoor",
-            "mega_menu_1_product": "silk-summer-top"
-          }
-        },
         "mega_menu_1_8Wxrrz": {
           "type": "mega_menu_1",
           "settings": {
-            "mega_menu_1_title": "Mega menu 2",
+            "mega_menu_1_title": "Featured Collections",
             "slot_1_image": "shopify://shop_images/Rang-Bangladesh-RBL-PNJ-C1-00486-5.webp",
             "slot_1_link_title": "Men Dress Collection",
             "slot_1_link_url": "shopify://collections/men",
@@ -45,7 +32,6 @@
         }
       },
       "block_order": [
-        "mega_menu_1_i4hxD8",
         "mega_menu_1_8Wxrrz"
       ],
       "settings": {

@@ -18,13 +18,10 @@
           "type": "mega_menu_1",
           "settings": {
             "mega_menu_1_title": "Featured Collections",
-            "slot_1_image": "shopify://shop_images/blue-tux1.jpg",
             "slot_1_link_title": "Men's Collection",
-            "menu_1_link_url": "shopify://collections/mens-collections",
-            "slot_2_image": "shopify://shop_images/stylish-summer-necklace_925x_6b3473b8-1043-4a22-827f-6ebc901c0efd.jpg",
+            "slot_1_link_url": "",
             "slot_2_link_title": "Women's Collection",
             "menu_2_link_url": "shopify://collections/womens-collections",
-            "slot_3_image": "shopify://shop_images/indoor_outdoor_adobestock_slavun_m24_full_m36_1025.jpg",
             "slot_3_link_title": "Interior decoration",
             "menu_3_link_url": "shopify://collections/indoor",
             "mega_menu_1_product": "silk-summer-top"
@@ -34,12 +31,15 @@
           "type": "mega_menu_1",
           "settings": {
             "mega_menu_1_title": "Mega menu 2",
-            "slot_1_link_title": "Slot 1 link title",
-            "menu_1_link_url": "",
-            "slot_2_link_title": "Slot 2 link title",
-            "menu_2_link_url": "",
-            "slot_3_link_title": "Slot 3 link title",
-            "menu_3_link_url": "",
+            "slot_1_image": "shopify://shop_images/Rang-Bangladesh-RBL-PNJ-C1-00486-5.webp",
+            "slot_1_link_title": "Men Dress Collection",
+            "slot_1_link_url": "shopify://collections/men",
+            "slot_2_image": "shopify://shop_images/Rang-Bangladesh-RRJ-SHT-00056-3.webp",
+            "slot_2_link_title": "Boys Dress Collection",
+            "menu_2_link_url": "shopify://collections/boys-collection",
+            "slot_3_image": "shopify://shop_images/RRJ-SHR-F9-00035-2-1-768x768.webp",
+            "slot_3_link_title": "Girls Dress Collection",
+            "menu_3_link_url": "shopify://collections/girls-collection",
             "mega_menu_1_product": ""
           }
         }

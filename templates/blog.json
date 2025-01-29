@@ -13,7 +13,7 @@
       "type": "countdown",
       "settings": {
         "title": "Limited Time Offer!",
-        "future_time": "Jan, 31, 2025, 18:00:00"
+        "future_time": "Jan, 30, 2025, 18:00:00"
       }
     },
     "main": {

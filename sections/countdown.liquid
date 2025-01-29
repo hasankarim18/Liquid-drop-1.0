@@ -3,6 +3,12 @@
     "name": "Countdown Timer",
     "settings": [
       {
+        "type": "checkbox",
+        "id": "show_timer",
+        "label": "Show or hide timer",
+        "default": true
+      },
+      {
         "type": "text",
         "id": "title",
         "label": "Countdown Title",
@@ -23,15 +29,18 @@
   }
 {% endschema %}
 
-<div
-  data-future-time="{{ section.settings.future_time }}"
-  class="countdown-timer"
-  id="countdown-timer">
-  <h2 class="text-2xl text-center">
-    Countdown timer
-  </h2>
-  <h2 id="countdown-title">{{ section.settings.title }}</h2>
-  <div id="countdown-display"></div>
+<div>
+  {% if section.settings.show_timer %}
+    <div
+      data-future-time="{{ section.settings.future_time }}"
+      class="countdown-timer"
+      id="countdown-timer">
+      <h2 id="countdown-title">{{ section.settings.title }}</h2>
+      <div id="countdown-display"></div>
+    </div>
+  {% endif %}
+
+
 </div>
 
 <script>

@@ -7,3 +7,4 @@ tailwind.config.js
 .vscode/settings.json
 src/input.css
 ./src/input.css
+README.md

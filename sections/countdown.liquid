@@ -1,0 +1,92 @@
+{% schema %}
+  {
+    "name": "Countdown Timer",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Countdown Title",
+        "default": "Limited Time Offer!"
+      },
+      {
+        "type": "text",
+        "id": "future_time",
+        "label": "Future Time (e.g., Jan, 30, 2025, 18:00:00)",
+        "default": "Jan, 31, 2025, 18:00:00"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Counddown Titmer"
+      }
+    ]
+  }
+{% endschema %}
+
+<div
+  data-future-time="{{ section.settings.future_time }}"
+  class="countdown-timer"
+  id="countdown-timer">
+  <h2 class="text-2xl text-center">
+    Countdown timer
+  </h2>
+  <h2 id="countdown-title">{{ section.settings.title }}</h2>
+  <div id="countdown-display"></div>
+</div>
+
+<script>
+      document.addEventListener('DOMContentLoaded', function () {
+        const countdownTimer = document.getElementById('countdown-timer');
+        const countdownTitle = document.getElementById('countdown-title');
+        const countdownDisplay = document.getElementById('countdown-display');
+    
+        const futureTime = countdownTimer.dataset.futureTime
+        const targetDate = new Date(futureTime);
+    
+        function updateCountdown() {
+          const now = new Date();
+          const timeDiff = targetDate - now;
+    
+          if (timeDiff <= 0) {
+            countdownTimer.style.display = 'none';
+            return;
+          }
+    
+          const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+          const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+          const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+    
+          countdownDisplay.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+        }
+    
+        if (targetDate > new Date()) {
+          countdownTimer.style.display = 'block';
+          updateCountdown();
+          setInterval(updateCountdown, 1000);
+        } else {
+          countdownTimer.style.display = 'none';
+        }
+      });
+</script>
+
+<style>
+  .countdown-timer {
+    text-align: center;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin: 20px 0;
+  }
+
+  #countdown-title {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
+
+  #countdown-display {
+    font-size: 1.25rem;
+    color: #333;
+  }
+</style>

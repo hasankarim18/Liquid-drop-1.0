@@ -9,6 +9,9 @@
  */
 {
   "sections": {
+    "timer": {
+      "type": "countdown"
+    },
     "main": {
       "type": "blog",
       "blocks": {
@@ -48,7 +51,5 @@
       }
     }
   },
-  "order": [
-    "main"
-  ]
+  "order": ["timer", "main"]
 }

@@ -28,7 +28,13 @@
             {% endfor %}
           </ul>
         </div>
-        <div class="icon-group col-span-1 flex justify-end items-center">icons</div>
+        <div class="icon-group col-span-1 flex justify-end items-center">
+          <a class="relative" href="{{ routes.cart_url }}">
+            <span id="cart_number" class="w-6 h-6 top-[-5px] right-[-13px] rounded-full z-20 inline-flex justify-center absolute items-center  bg-slate-700 text-white font-semibold">{{ cart.item_count }}</span>
+            {%- render 'icon-cart'
+              , class: 'w-8 h-8 hover:text-red-400 transition-all duration-300 relative z-10' -%}
+          </a>
+        </div>
       </div>
     </div>
   </div>

@@ -24,7 +24,10 @@
                   </label>
                 </th>
                 <th>Product</th>
-                <th>Quantity</th>
+                <th>
+                  <div class="text-center">Quantity</div>
+                </th>
+
                 <th>Total Price</th>
 
               </tr>
@@ -41,10 +44,12 @@
                   <td>
                     <div class="flex items-center gap-3">
                       <div class="">
-                        <div class="mask mask-squircle ">
+                        <div class="">
                           <a href="{{ item.url }}">
                             {% if item.image %}
                               <img
+                                width=""
+                                height=""
                                 class="w-20 h-20 border rounded-md"
                                 src="{{ item.image |  image_url: width:300, height:300  }}"
                                 alt="{{ item.title }}" />
@@ -55,25 +60,46 @@
                         </div>
                       </div>
                       <div>
-                        <div class="font-bold">{{ item.title }}</div>
-                        <div class="text-sm opacity-50">United States</div>
+                        <div class="font-bold">{{ item.product.title | truncatewords: 5 }}</div>
+                        <div class="text-sm  mt-2 text-gray-500 font-semibold">{{ item.variant.title }}</div>
+                        <div class="text-sm  mt-2 text-gray-500 font-semibold">
+                          <a class="link link-error text-red-300 hover:text-red-500" href="{{  item.url_to_remove }}">Remove Item</a>
+                        </div>
                       </div>
                     </div>
                   </td>
                   <td>
-                    <div>
+                    <div class="flex justify-center items-center ">
+                      <button class=" border-2 border-r-0 h-12 w-10  flex justify-center items-center  font-semibolb  text-center" type="text">
+                        <span class="inline-block h-[2px] w-4 bg-black  border-black"></span>
+                      </button>
+                      {% comment %} update {% endcomment %}
                       <input
-                        class=" border-2  p-4 text-center"
-                        type="text"
-                        value="-">
-                      <input class=" border-2  p-4 text-center" value="{{ item.quantity }}" />
-                      <input
-                        class=" border-2  p-4 text-center"
-                        type="text"
-                        value="+">
+                        type="number"
+                        min="1"
+                        id="updates-{{ forloop.index }}"
+                        name="updates[]"
+                        class="border-2 h-12 text-2xl font-semibold  text-center"
+                        value="{{ item.quantity }}" />
+                      <button class=" border-2 border-l-0 h-12 w-10 inline-flex justify-center items-center text-center" type="text">
+                        <span class="inline-block text-4xl -mt-1 ">+</span>
+                      </button>
                     </div>
                   </td>
-                  <td>{{ item.line_price | money }}</td>
+                  <td>
+                    <div class="flex flex-col justify-center items-center gap-2">
+                      <button
+                        type="submit"
+                        id="cart_item_delete"
+                        data-cart-item-id="{{ item.id }}">
+                        {% render 'icon-delete'
+                          , class: 'w-6 h-10 text-red-400 hover:text-red-800 transition-all duration-300 cursor-pointer' %}
+                      </button>
+                    </div>
+                  </td>
+                  <td>
+                    <span class="text-xl font-semibold">{{ item.line_price | money }}</span>
+                  </td>
 
                 </tr>
               {% endfor %}
@@ -84,12 +110,44 @@
             <tfoot>
               <tr>
                 <th></th>
-                <th>Job</th>
-                <th>Total Price</th>
-                <th>{{ cart.total_price | money }}</th>
+                <th></th>
+                <th></th>
+                <th class="text-center">Total Price</th>
+                <th>
+                  <span class="class=
+                  text-xl
+                  font-semibold">
+                    {{ cart.total_price | money }}</span>
+                </th>
               </tr>
             </tfoot>
           </table>
+          <div class="cart-notes ">
+            <div class="flex flex-col items-start justify-start">
+              <label for="cart-note">Cart Note</label>
+              <textarea
+                name="note"
+                id="cart-note"
+                class="w-full md:max-w-lg border-2  h-20"></textarea>
+            </div>
+          </div>
+          <div class="flex flex-col gap-2 justify-end py-4">
+
+            <div class="mb-2 flex justify-end">
+              <input
+                type="submit"
+                value="Update Cart"
+                class="btn btn-primary btn-outline w-[90vw] md:w-[50vw] lg:w-[20vw]">
+            </div>
+            <div class="mb-2 flex justify-end">
+              <input
+                type="submit"
+                name="checkout"
+                value="Checkout"
+                class="btn btn-success btn-outline w-[90vw] md:w-[50vw] lg:w-[20vw] ">
+
+            </div>
+          </div>
         </div>
       </form>
     </div>

@@ -122,31 +122,39 @@
               </tr>
             </tfoot>
           </table>
-          <div class="cart-notes ">
-            <div class="flex flex-col items-start justify-start">
-              <label for="cart-note">Cart Note</label>
-              <textarea
-                name="note"
-                id="cart-note"
-                class="w-full md:max-w-lg border-2  h-20"></textarea>
+          <div class="cart-actions grid grid-cols-1 md:grid-cols-2 mt-4 border-t-2 pt-4">
+            {% comment %} cart notes {% endcomment %}
+            <div class="notes">
+              <div class="cart-notes ">
+                <div class="flex flex-col items-start justify-start">
+                  <label for="cart-note text-xl ">Cart note</label>
+                  <textarea
+                    name="note"
+                    id="cart-note"
+                    class="w-full md:max-w-lg border-2  h-20"></textarea>
+                </div>
+              </div>
             </div>
-          </div>
-          <div class="flex flex-col gap-2 justify-end py-4">
+            {% comment %} cart buttons {% endcomment %}
+            <div class="cart-buttons">
+              <div class="flex flex-col gap-2 justify-end py-4">
 
-            <div class="mb-2 flex justify-end">
-              <input
-                type="submit"
-                value="Update Cart"
-                class="btn btn-primary btn-outline w-[90vw] md:w-[50vw] lg:w-[20vw]">
+                <div class="mb-2 flex justify-end">
+                  <input
+                    type="submit"
+                    value="Update Cart"
+                    class="btn btn-primary btn-outline w-[90vw] md:w-[50vw] lg:w-[20vw]">
+                </div>
+                <div class="mb-2 flex justify-end">
+                  <input
+                    type="submit"
+                    name="checkout"
+                    value="Checkout"
+                    class="btn btn-success btn-outline w-[90vw] md:w-[50vw] lg:w-[20vw] ">
+                </div>
+              </div>
             </div>
-            <div class="mb-2 flex justify-end">
-              <input
-                type="submit"
-                name="checkout"
-                value="Checkout"
-                class="btn btn-success btn-outline w-[90vw] md:w-[50vw] lg:w-[20vw] ">
 
-            </div>
           </div>
         </div>
       </form>
@@ -165,3 +173,17 @@
 
 
 </div>
+
+{% schema %}
+  {
+    "name": "Main Cart",
+    "tag": "section",
+    "settings": [],
+    "presets": [
+      {
+        "name": "Main Cart",
+        "settings": {}
+      }
+    ]
+  }
+{% endschema %}

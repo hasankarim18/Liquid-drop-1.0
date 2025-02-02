@@ -1,0 +1,219 @@
+<product-media>
+  <div id="product_media-{{ section.id }}">
+    <h2 class="text-xm text-gray-400">{{ template }} / product-template-1 / product-media-template-1</h2>
+    {% comment %} laptop mediao view {% endcomment %}
+    <div class="featured_image">
+      <div class="text-3xl my-6">
+        {% if selected_variant.featured_image %}
+          <img
+            loading="lazy"
+            src="{{ selected_variant.featured_image |  image_url  }}"
+            class="w-full"
+            alt="">
+        {% else %}
+
+        {% endif %}
+
+      </div>
+    </div>
+    <div class="hidden md:block">
+      <ul class="grid grid-cols-2 gap-8">
+        {% for media in product.media %}
+
+          {% case media.media_type %}
+            {% when 'image' %}
+              <li
+                data-media-type="image"
+                data-product-modal
+                data-media-src="{{ media.src |  image_url}}"
+                class="swiper-slide cursor-pointer"
+                class=""
+                data-media-id="{{ media.id }}">
+                {{ media | image_url: width: 2048, height: 2048 | image_tag }}
+              </li>
+            {% when 'external_video' %}
+              <li class="" data-media-id="{{ media.id }}">
+                {{ media | external_video_tag }}
+              </li>
+            {% when 'video' %}
+              <li class="" data-media-id="{{ media.id }}">
+                {{ media | video_tag: controls: true, class: 'w-full h-full' }}
+              </li>
+            {% when 'model' %}
+              <li class="" data-media-id="{{ media.id }}">
+                {{ media | model_viewer_tag }}
+              </li>
+            {% else %}
+              <li class="" data-media-id="{{ media.id }}">
+                {{ media | media_tag }}
+              </li>
+          {% endcase %}
+        {% endfor %}
+      </ul>
+    </div>
+    {% comment %} #mobile media view {% endcomment %}
+    <div class="block md:hidden relative overflow-hidden">
+      <div class="product-media-carousor mySwiper1">
+        <ul class="swiper-wrapper">
+          {% for media in product.media %}
+            {% case media.media_type %}
+              {% when 'image' %}
+                <li
+                  data-media-type="image"
+                  data-product-modal
+                  data-media-src="{{ media.src |  image_url}}"
+                  class="swiper-slide"
+                  data-media-id="{{ media.id }}">
+                  {{ media | image_url: width: 2048, height: 2048 | image_tag }}
+                </li>
+              {% when 'external_video' %}
+                <li
+                  data-product-modal
+                  class="swiper-slide"
+                  data-media-id="{{ media.id }}">
+                  {{ media | external_video_tag }}
+                </li>
+              {% when 'video' %}
+                <li
+                  data-product-modal
+                  data-media-url="{{ media.sources[1].url }}"
+                  class="swiper-slide"
+                  data-media-id="{{ media.id }}">
+                  {{ media | video_tag: controls: true, class: 'w-full h-full' }}
+                </li>
+              {% when 'model' %}
+                <li
+                  data-product-modal
+                  class="swiper-slide"
+                  data-media-id="{{ media.id }}">
+                  {{ media | model_viewer_tag }}
+                </li>
+              {% else %}
+                <li
+                  data-product-modal
+                  class="swiper-slide"
+                  data-media-id="{{ media.id }}">
+                  {{ media | media_tag }}
+                </li>
+            {% endcase %}
+          {% endfor %}
+        </ul>
+
+        <div class="swiper-pagination"></div>
+      </div>
+    </div>
+    <div id="product_media_modal" class="product-media-modal justify-center items-center z-50 hidden fixed top-0 left-0 w-full h-full bg-black bg-opacity-30">
+      <div data-modal-content class="overflow-scroll max-w-[90vw] max-h-[90vh] rounded-sm transition-transform block scale-75 duration-500 "></div>
+    </div>
+  </div>
+</product-media>
+
+<style>
+  .mySwiper1 {
+    width: 100%;
+    height: 100%;
+  }
+
+
+  .mySwiper1 .swiper-slide {
+    cursor: pointer;
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .mySwiper1 .swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+</style>
+
+<script>
+  
+  
+    document.addEventListener('DOMContentLoaded', () => {
+  
+        class ProductMedia extends HTMLElement {
+            constructor(){
+                super()
+                this.productMediaInit()
+            }
+  
+            productMediaInit(){               
+               this.triggerModal()
+            }
+  
+            triggerModal(){
+               const modal = this.querySelector('#product_media_modal')
+               const modalContent = modal.querySelector('div[data-modal-content]')
+                const selectriggers = this.querySelectorAll('li[data-product-modal]')
+                selectriggers.forEach((elm) => {
+                    elm.addEventListener('click', (e) => {
+                       modal.classList.remove('hidden')                     
+                       modal.classList.add('flex')
+                       setTimeout(() => {
+                        modalContent.classList.remove('scale-75')
+                        modalContent.classList.add('scale-100')
+                       }, 1);   
+                        document.querySelector('body').classList.add('overflow-hidden')
+                        modalContent.innerHTML = ''
+    
+                        // Insert new content based on media type
+                        const mediaUrl = elm.getAttribute('data-media-src')
+                        const mediaType = elm.getAttribute('data-media-type')                        
+                        
+                        if (mediaType === 'image') {
+                        modalContent.innerHTML = `<img src="${mediaUrl}" alt="Product Image" class="w-full h-full">`;
+                        } else if (mediaType === 'external_video') {
+                        modalContent.innerHTML = `<iframe src="https://www.youtube.com/embed/${mediaUrl}" class="w-full h-96" frameborder="0" allowfullscreen></iframe>`;
+                        } else if (mediaType === 'video') {
+                        modalContent.innerHTML = `<video controls class="w-full h-auto"><source src="${mediaUrl}" type="video/mp4"></video>`;
+                        } else if (mediaType === 'model') {
+                        modalContent.innerHTML = `<model-viewer src="${mediaUrl}" alt="3D Model" auto-rotate camera-controls class="w-full h-96"></model-viewer>`;
+                        } else {
+                        modalContent.innerHTML = mediaUrl; // Fallback for other media types
+                        }
+                        
+                    })
+                })
+  
+  
+                modal.addEventListener('click', (e) => {  
+                    document.querySelector('body').classList.remove('overflow-hidden')
+                    if(e.target === modal){
+                        modal.querySelector('div[data-modal-content]').classList.add('scale-75')
+                        modal.querySelector('div[data-modal-content]').classList.remove('scale-100')
+                        modal.classList.add('hidden')
+                        modal.classList.remove('flex')
+                        modalContent.innerHTML = ""
+                    }
+                })
+            }// trigger modal ends
+  
+  
+        } 
+      
+  
+    customElements.define('product-media', ProductMedia)
+  
+       
+  
+        
+  
+     // #product-slider
+        const swiper = new Swiper('.mySwiper1', { // Optional parameters    
+            slidesPerView: 3,
+            spaceBetween: 30,
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+         },
+        });
+    })
+</script>

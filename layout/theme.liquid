@@ -12,6 +12,7 @@
     {% comment %} #tailwind {% endcomment %}
     {{ 'tailwind.css' | asset_url | stylesheet_tag }}
     {{ 'application.css' | asset_url | stylesheet_tag }}
+    {{ 'swiper-bundle.min.css' | asset_url | stylesheet_tag }}
 
 
     <script defer src="{{ 'application.js' | asset_url  }}"></script>
@@ -23,4 +24,6 @@
       {{ content_for_layout }}
     </main>
   </body>
+
+  <script defer src="{{ 'swiper-bundle.min.js' |  asset_url }}"></script>
 </html>

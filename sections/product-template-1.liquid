@@ -20,6 +20,11 @@
           <div class="sticky top-0 left-0 py-10">
             {% form 'product'
               , product %}
+              {% comment %} #variant id {% endcomment %}
+              <input
+                type="hidden"
+                name="id"
+                value="{{ selected_variant.id }}">
               {% comment %} #vendor {% endcomment %}
               <div class="my-3">
                 <span class="text-sm text-gray-500">{{ product.vendor }}</span>
@@ -34,10 +39,89 @@
               </div>
               {% comment %} #price  {% endcomment %}
               <div class="my-3">
-                {% render 'product-template-1-show-price'
-                  , product: product
-                  , selected_variant: selected_variant
-                  , currency_style: currency_style %}
+                <div data-product-price-container="product_price_container-{{ section.id }}">
+                  {% render 'product-template-1-show-price'
+                    , product: product
+                    , selected_variant: selected_variant
+                    , currency_style: currency_style %}
+                </div>
+              </div>
+              {% comment %} #variant {% endcomment %}
+              <div class="my-3">
+                {% unless product.has_only_default_variant %}
+                  <div data-url="{{ product.url }}" data-section="{{ section.id }}">
+                    <select class="w-full p-4 border-2">
+                      <span class="mb-2 badge-neutral">single variable</span>
+                      {% for variant in product.variants %}
+                        <option
+                          value="{{ variant.id }}"
+                          {% if product.selected_or_first_available_variant.id == variant.id %}
+                          selected="selected"
+                          {% endif %}>
+                          {{ variant.title }}
+                        </option>
+                      {% endfor %}
+                    </select>
+                  </div>
+                {% endunless %}
+              </div>
+
+              {% comment %} #variant complex {% endcomment %}
+              <div class="my-3">
+                <span class="mb-2 badge-neutral">complex variants</span>
+                {% for option in product.options_with_values %}
+                  <div class="mb-3">
+                    <label for="option-{{section.id}}-{{ forloop[0] }}">{{ option.name }}</label>
+                    <select
+                      id="option-{{section.id}}-{{ forloop[0] }}"
+                      name="options[{{ option.name |  escape }}]"
+                      class="w-full p-4 mb-4 border-2"
+                      id="">
+                      {% for option_value in option.values %}
+                        <option
+                          {% if option.selected_value == option_value %}
+                          selected
+                          {% endif %}
+                          value="{{ option_value }}">{{ option_value }}</option>
+                      {% endfor %}
+                    </select>
+                  </div>
+                {% endfor %}
+              </div>
+              {% comment %} #quantity {% endcomment %}
+              <div class="my-3">
+                <label for="quantity-{{ section.id }}">Quantity</label>
+                <div class="my-2">
+                  <input
+                    class="w-full text-xl text-center p-4 border-2"
+                    value="1"
+                    min="1"
+                    type="number"
+                    name="quantity">
+                </div>
+              </div>
+
+              {% comment %} #description {% endcomment %}
+              <div class="my-3">
+                <p class="text-gray-700">
+                  {{ product.description }}
+                </p>
+              </div>
+              {% comment %} #add tocart {% endcomment %}
+              <div class="my-3">
+                <button
+                  {% if selected_variant.available == false %}
+                  disabled
+                  {% endif %}
+                  type="submit"
+                  name="add"
+                  class="w-full p-4 boder-2 bg-gray-900 hover:bg-gray-700 uppercase text-white">
+                  {% if selected_variant.available == false %}
+                    sold out
+                  {% else %}
+                    add to cart
+                  {% endif %}
+                </button>
               </div>
 
             {% endform %}

@@ -6,6 +6,8 @@
       <div class="text-3xl my-6">
         {% if selected_variant.featured_image %}
           <img
+            width=""
+            height=""
             loading="lazy"
             src="{{ selected_variant.featured_image |  image_url  }}"
             class="w-full"

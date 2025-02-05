@@ -1,0 +1,12 @@
+{
+  "settings_schema": {
+    "logo": {
+      "name": "Logo From en.default.sechame.json",
+      "settings": {
+        "logo_image": {
+          "label": "Main Logo Label"
+        }
+      }
+    }
+  }
+}

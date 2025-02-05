@@ -1,11 +1,12 @@
 {%- liquid
   assign selected_variant = product.selected_or_first_available_variant
+  assign currency_style = section.settings.currency_style
 -%}
 <div class="my_container {{ template.name }}">
   <h2 class="text-sm text-left mb-4">{{ template.name }} / Product-template-1</h2>
   {% comment %} #product info {% endcomment %}
   <div>
-    <product-info>
+    <product-detail>
       <div
         data-section-id="{{ section.id }}"
         id="product-{{ section.id }}"
@@ -15,13 +16,35 @@
             , product: product
             , selected_variant: selected_variant %}
         </div>
-        <div>
+        <div class="product-information relative">
+          <div class="sticky top-0 left-0 py-10">
+            {% form 'product'
+              , product %}
+              {% comment %} #vendor {% endcomment %}
+              <div class="my-3">
+                <span class="text-sm text-gray-500">{{ product.vendor }}</span>
+              </div>
+              {% comment %} #title {% endcomment %}
+              <div class="my-3">
+                <h2 class="text-3xl text-gray-800">{{ product.title }}</h2>
+              </div>
+              {% comment %} #variant {% endcomment %}
+              <div class="my-3">
+                {{ selected_variant.title }}
+              </div>
+              {% comment %} #price  {% endcomment %}
+              <div class="my-3">
+                {% render 'product-template-1-show-price'
+                  , product: product
+                  , selected_variant: selected_variant %}
+              </div>
 
-          product info
+            {% endform %}
+          </div>
 
         </div>
       </div>
-    </product-info>
+    </product-detail>
   </div>
 </div>
 
@@ -29,7 +52,28 @@
   {
     "name": "Product Template 1",
     "tag": "section",
-    "settings": [],
+    "settings": [
+      {
+        "type": "select",
+        "id": "currency_style",
+        "label": "Currency Style",
+        "options": [
+          {
+            "label": "money",
+            "value": "money"
+          },
+          {
+            "label": "money with currency",
+            "value": "money_with_currency"
+          },
+          {
+            "label": "money without currency",
+            "value": "money_without_currency"
+          }
+        ],
+        "default": "money"
+      }
+    ],
     "presets": [
       {
         "name": "Product Template 1",
@@ -42,7 +86,7 @@
 
 <script>
   document.addEventListener("DOMContentLoaded", () => {
-    class ProductInfo extends HTMLElement {
+    class ProductDetail extends HTMLElement {
       constructor(){
         super()
         this.productInfo()
@@ -53,10 +97,12 @@
       
       }
   
-    }
+    }  
   
+    customElements.define('product-detail', ProductDetail)
   
-    customElements.define('product-info', ProductInfo)
+    // #product Info class
+  
   
   })
 </script>

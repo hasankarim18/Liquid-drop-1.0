@@ -1,0 +1,54 @@
+<variant-selector-select>
+  <div class="my-3">
+    <span class="mb-2 badge-neutral">complex variants</span>
+
+    {%- unless product.has_only_default_variant -%}
+      {% for option in product.options_with_values %}
+        <div class="mb-3">
+          <label class="text-2xl font-bold" for="option-{{section.id}}-{{ forloop[0] }}">{{ option.name }}</label>
+          <select
+            id="option-{{section.id}}-{{ forloop[0] }}"
+            name="options[{{ option.name |  escape }}]"
+            class="w-full p-4 mb-4 border-2"
+            id="">
+            {% for option_value in option.values %}
+              <option
+                {% if option.selected_value == option_value %}
+                selected
+                {% endif %}
+                value="{{ option_value }}">{{ option_value }}</option>
+            {% endfor %}
+          </select>
+        </div>
+      {% endfor %}
+    {%- endunless -%}
+  </div>
+</variant-selector-select>
+
+<script>
+  
+  class VariantSelectorSelectType extends HTMLElement {
+      constructor(){
+        super()
+        this.addEventListener("change", () => {
+          this.initVariantSelector()
+        })
+       
+      }
+  
+      initVariantSelector(){
+        
+        this.getSelectedOptions()
+      }
+  
+      getSelectedOptions(){
+        this.options = Array.from(this.querySelectorAll('select'), (select) => select.value)
+        console.log(this.options)
+        
+      }
+  
+      // # class ends
+    }
+  
+    customElements.define('variant-selector-select',VariantSelectorSelectType )
+</script>

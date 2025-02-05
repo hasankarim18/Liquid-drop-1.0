@@ -1,7 +1,18 @@
 {%- liquid
   assign selected_variant = product.selected_or_first_available_variant
   assign currency_style = section.settings.currency_style
+  assign product_feature_image = selected_variant.featured_image
+
+  if selected_variant.featured_image
+    assign product_feature_image = selected_variant.featured_image
+  elsif selected_variant.featured_image == blank and product.images[0]
+    assign product_feature_image = product.images[0]
+  else
+    assign product_feature_image = roduct.featured_image
+  endif
 -%}
+
+
 <div class="my_container {{ template.name }}">
   <h2 class="text-sm text-left mb-4">{{ template.name }} / Product-template-1</h2>
   {% comment %} #product info {% endcomment %}
@@ -14,7 +25,8 @@
         <div>
           {% render 'product-media-template-1'
             , product: product
-            , selected_variant: selected_variant %}
+            , selected_variant: selected_variant
+            , product_feature_image: product_feature_image %}
         </div>
         <div class="product-information relative">
           <div class="sticky top-0 left-0 py-10">
@@ -48,30 +60,32 @@
               </div>
 
               {% comment %} #variant complex {% endcomment %}
-              <div class="my-3">
-                <span class="mb-2 badge-neutral">complex variants</span>
-                {%- unless product.has_only_default_variant -%}
-                  {% for option in product.options_with_values %}
-                    <div class="mb-3">
-                      <label for="option-{{section.id}}-{{ forloop[0] }}">{{ option.name }}</label>
-                      <select
-                        id="option-{{section.id}}-{{ forloop[0] }}"
-                        name="options[{{ option.name |  escape }}]"
-                        class="w-full p-4 mb-4 border-2"
-                        id="">
-                        {% for option_value in option.values %}
-                          <option
-                            {% if option.selected_value == option_value %}
-                            selected
-                            {% endif %}
-                            value="{{ option_value }}">{{ option_value }}</option>
-                        {% endfor %}
-                      </select>
-                    </div>
-                  {% endfor %}
-                {%- endunless -%}
+              <variant-selector-select>
+                <div class="my-3">
+                  <span class="mb-2 badge-neutral">complex variants</span>
 
-              </div>
+                  {%- unless product.has_only_default_variant -%}
+                    {% for option in product.options_with_values %}
+                      <div class="mb-3">
+                        <label class="text-2xl font-bold" for="option-{{section.id}}-{{ forloop[0] }}">{{ option.name }}</label>
+                        <select
+                          id="option-{{section.id}}-{{ forloop[0] }}"
+                          name="options[{{ option.name |  escape }}]"
+                          class="w-full p-4 mb-4 border-2"
+                          id="">
+                          {% for option_value in option.values %}
+                            <option
+                              {% if option.selected_value == option_value %}
+                              selected
+                              {% endif %}
+                              value="{{ option_value }}">{{ option_value }}</option>
+                          {% endfor %}
+                        </select>
+                      </div>
+                    {% endfor %}
+                  {%- endunless -%}
+                </div>
+              </variant-selector-select>
               {% comment %} #quantity {% endcomment %}
               <div class="my-3">
                 <label for="quantity-{{ section.id }}">Quantity</label>
@@ -170,8 +184,33 @@
   
     customElements.define('product-detail', ProductDetail)
   
-    // #product Info class
+    // #variant scripts 
   
+    class VariantSelectorSelectType extends HTMLElement {
+      constructor(){
+        super()
+        this.addEventListener("change", () => {
+          this.initVariantSelector()
+        })
+       
+      }
   
+      initVariantSelector(){
+        
+        this.getSelectedOptions()
+      }
+  
+      getSelectedOptions(){
+        this.options = Array.from(this.querySelectorAll('select'), (select) => select.value)
+        console.log(this.options)
+        
+      }
+  
+      // # class ends
+    }
+  
+    customElements.define('variant-selector-select',VariantSelectorSelectType )
+  
+  // #eventlistener end 
   })
 </script>

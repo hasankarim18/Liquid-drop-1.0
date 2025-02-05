@@ -4,18 +4,14 @@
     {% comment %} laptop mediao view {% endcomment %}
     <div class="featured_image">
       <div class="text-3xl my-6">
-        {% if selected_variant.featured_image %}
-          <img
-            width=""
-            height=""
-            loading="lazy"
-            src="{{ selected_variant.featured_image |  image_url  }}"
-            class="w-full"
-            alt="">
-        {% else %}
-
-        {% endif %}
-
+        <img
+          id="product-feature-image-{{ section.id }}"
+          width=""
+          height=""
+          loading="lazy"
+          src="{{ product_feature_image |  image_url  }}"
+          class="w-full"
+          alt="">
       </div>
     </div>
     <div class="hidden md:block">
@@ -31,7 +27,7 @@
                 class="swiper-slide cursor-pointer"
                 class=""
                 data-media-id="{{ media.id }}">
-                {{ media | image_url: width: 2048, height: 2048 | image_tag }}
+                {{ media | image_url: width: 2048, height: 2048 | image_tag: class: 'cursor-zoom-in' }}
               </li>
             {% when 'external_video' %}
               <li class="" data-media-id="{{ media.id }}">

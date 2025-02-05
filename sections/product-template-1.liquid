@@ -22,7 +22,7 @@
         data-section-id="{{ section.id }}"
         id="product-{{ section.id }}"
         class=" grid grid-cols-1 md:grid-cols-2 gap-4 ">
-        <div>
+        <div id="product_media-{{section.id}}" class="">
           {% render 'product-media-template-1'
             , product: product
             , selected_variant: selected_variant
@@ -31,10 +31,12 @@
         <div class="product-information relative">
           <div class="sticky top-0 left-0 py-10">
             {% form 'product'
-              , product %}
+              , product
+              , id: 'product-form-1'
+              , novalidate: 'novalidate' %}
               {% comment %} #variant id {% endcomment %}
               <input
-                type="hidden"
+                type="readonly"
                 name="id"
                 value="{{ selected_variant.id }}">
               {% comment %} #vendor {% endcomment %}
@@ -50,7 +52,7 @@
                 {{ selected_variant.title }}
               </div>
               {% comment %} #price  {% endcomment %}
-              <div class="my-3">
+              <div id="product_price-{{ section.id }}" class="my-3">
                 <div data-product-price-container="product_price_container-{{ section.id }}">
                   {% render 'product-template-1-show-price'
                     , product: product
@@ -60,11 +62,9 @@
               </div>
 
               {% comment %} #variant complex {% endcomment %}
-              <variant-selector-select>
-                <div class="my-3">
-                  <span class="mb-2 badge-neutral">complex variants</span>
-
-                  {%- unless product.has_only_default_variant -%}
+              {%- unless product.has_only_default_variant -%}
+                <variant-selector-select data-url="{{ product.url }}" data-section="{{ section.id }}">
+                  <div class="my-3">
                     {% for option in product.options_with_values %}
                       <div class="mb-3">
                         <label class="text-2xl font-bold" for="option-{{section.id}}-{{ forloop[0] }}">{{ option.name }}</label>
@@ -82,10 +82,21 @@
                           {% endfor %}
                         </select>
                       </div>
+                      <script type="application/json">
+                        {{ product.variants | json }}
+                      </script>
                     {% endfor %}
-                  {%- endunless -%}
-                </div>
-              </variant-selector-select>
+                  </div>
+                </variant-selector-select>
+              {%- endunless -%}
+              {% comment %} #availability {% endcomment %}
+              <div class="my-3">
+                <span>
+                  {% if selected_variant.inventory_quantity < 10 %}
+                    Only
+                  {% endif %}
+                  {{ selected_variant.inventory_quantity }} item(s) left in stock.</span>
+              </div>
               {% comment %} #quantity {% endcomment %}
               <div class="my-3">
                 <label for="quantity-{{ section.id }}">Quantity</label>
@@ -94,6 +105,7 @@
                     class="w-full text-xl text-center p-4 border-2"
                     value="1"
                     min="1"
+                    max="{{ selected_variant.inventory_quantity }}"
                     type="number"
                     name="quantity">
                 </div>
@@ -191,6 +203,7 @@
         super()
         this.addEventListener("change", () => {
           this.initVariantSelector()
+          
         })
        
       }
@@ -198,13 +211,77 @@
       initVariantSelector(){
         
         this.getSelectedOptions()
+       // this.getVariantJson()
+       this.getSelectedVariant()
+       if(this.currentVariant){
+        this.updateUrl()
+        this.updateFormId()
+        this.updateUi()
+       }
+       
       }
   
       getSelectedOptions(){
         this.options = Array.from(this.querySelectorAll('select'), (select) => select.value)
-        console.log(this.options)
-        
+       //console.log(this.options)        
       }
+  
+      getVariantJson(){
+        this.variantData = this.variantData || JSON.parse(this.querySelector('[type="application/json"]').textContent)
+        return this.variantData       
+      }
+  
+      // #copy this function
+      getSelectedVariant(){
+        this.currentVariant = this.getVariantJson().find((variant) => {
+          const findings = !variant.options.map((option,index) => {
+           return this.options[index] === option
+          }).includes(false)
+          if(findings) return variant  
+        })
+    //   console.log(this.currentVariant)
+      }
+  
+  
+      updateUrl(){
+        if(!this.currentVariant) return
+        // update the url
+        window.history.replaceState({}, '', `${this.dataset.url}?variant=${this.currentVariant.id}`)
+      }
+  
+      updateFormId(){
+       
+        const form_input = document.querySelector('#product-form-1').querySelector('input[name="id"]')
+        form_input.value = this.currentVariant.id
+      }
+  
+      updateUi(){
+        const url = `${this.dataset.url}?variant=${this.currentVariant.id}&section_id=${this.dataset.section}`
+       // console.log(url)
+     
+       fetch(url)
+       .then(res => res.text())
+       .then((responseText) => {
+        const html = new DOMParser().parseFromString(responseText, 'text/html')
+         const oldPrice = document.getElementById(`product_price-${this.dataset.section}`)
+         const newPrice = html.getElementById(`product_price-${this.dataset.section}`)
+       
+  
+         if(oldPrice && newPrice){
+            oldPrice.innerHTML = newPrice.innerHTML
+         }
+  
+        //  media update
+        const oldMedia = document.getElementById(`product_media-${this.dataset.section}`)
+        const newMedia = html.getElementById(`product_media-${this.dataset.section}`)
+  
+        if(oldMedia && newMedia) oldMedia.innerHTML = newMedia.innerHTML
+        
+  
+       })
+  
+      }
+      
   
       // # class ends
     }

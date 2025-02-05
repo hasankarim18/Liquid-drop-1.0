@@ -1,12 +1,22 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
-  "name": "Product",
   "sections": {
     "product_template_1": {
       "type": "product-template-1",
-      "settings": {},
-      "blocks": {},
-      "block_order": []
+      "settings": {
+        "currency_style": "money_with_currency"
+      }
     }
   },
-  "order": ["product_template_1"]
+  "order": [
+    "product_template_1"
+  ]
 }

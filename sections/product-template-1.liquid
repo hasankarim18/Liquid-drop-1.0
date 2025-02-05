@@ -46,47 +46,31 @@
                     , currency_style: currency_style %}
                 </div>
               </div>
-              {% comment %} #variant {% endcomment %}
-              <div class="my-3">
-                {% unless product.has_only_default_variant %}
-                  <div data-url="{{ product.url }}" data-section="{{ section.id }}">
-                    <select class="w-full p-4 border-2">
-                      <span class="mb-2 badge-neutral">single variable</span>
-                      {% for variant in product.variants %}
-                        <option
-                          value="{{ variant.id }}"
-                          {% if product.selected_or_first_available_variant.id == variant.id %}
-                          selected="selected"
-                          {% endif %}>
-                          {{ variant.title }}
-                        </option>
-                      {% endfor %}
-                    </select>
-                  </div>
-                {% endunless %}
-              </div>
 
               {% comment %} #variant complex {% endcomment %}
               <div class="my-3">
                 <span class="mb-2 badge-neutral">complex variants</span>
-                {% for option in product.options_with_values %}
-                  <div class="mb-3">
-                    <label for="option-{{section.id}}-{{ forloop[0] }}">{{ option.name }}</label>
-                    <select
-                      id="option-{{section.id}}-{{ forloop[0] }}"
-                      name="options[{{ option.name |  escape }}]"
-                      class="w-full p-4 mb-4 border-2"
-                      id="">
-                      {% for option_value in option.values %}
-                        <option
-                          {% if option.selected_value == option_value %}
-                          selected
-                          {% endif %}
-                          value="{{ option_value }}">{{ option_value }}</option>
-                      {% endfor %}
-                    </select>
-                  </div>
-                {% endfor %}
+                {%- unless product.has_only_default_variant -%}
+                  {% for option in product.options_with_values %}
+                    <div class="mb-3">
+                      <label for="option-{{section.id}}-{{ forloop[0] }}">{{ option.name }}</label>
+                      <select
+                        id="option-{{section.id}}-{{ forloop[0] }}"
+                        name="options[{{ option.name |  escape }}]"
+                        class="w-full p-4 mb-4 border-2"
+                        id="">
+                        {% for option_value in option.values %}
+                          <option
+                            {% if option.selected_value == option_value %}
+                            selected
+                            {% endif %}
+                            value="{{ option_value }}">{{ option_value }}</option>
+                        {% endfor %}
+                      </select>
+                    </div>
+                  {% endfor %}
+                {%- endunless -%}
+
               </div>
               {% comment %} #quantity {% endcomment %}
               <div class="my-3">

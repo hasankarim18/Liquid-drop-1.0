@@ -1,0 +1,13 @@
+[data-image-magnify-container] {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  border: 2px solid #ddd;
+  cursor: crosshair;
+  max-width: 100%; /* Makes it responsive */
+}
+
+img.image-magnify {
+  width: 100%; /* Makes image flexible */
+  transition: transform 0.1s ease-out;
+}

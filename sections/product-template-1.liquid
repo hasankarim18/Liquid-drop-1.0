@@ -39,6 +39,11 @@
                 type="readonly"
                 name="id"
                 value="{{ selected_variant.id }}">
+                {% comment %} #quantity {% endcomment %}
+              <input
+                type="hidden"
+                id="inventory_quantity-{{ section.id }}"
+                value="{{ selected_variant.inventory_quantity }}">
               {% comment %} #vendor {% endcomment %}
               <div class="my-3">
                 <span class="text-sm text-gray-500">{{ product.vendor }}</span>
@@ -90,7 +95,7 @@
                 </variant-selector-select>
               {%- endunless -%}
               {% comment %} #availability {% endcomment %}
-              <div class="my-3">
+              <div id="availability-{{ section.id }}" class="my-3">
                 <span>
                   {% if selected_variant.inventory_quantity < 10 %}
                     Only
@@ -120,12 +125,13 @@
               {% comment %} #add tocart {% endcomment %}
               <div class="my-3">
                 <button
+                  id="addtocart-{{ section.id }}"
                   {% if selected_variant.available == false %}
                   disabled
                   {% endif %}
                   type="submit"
                   name="add"
-                  class="w-full p-4 boder-2 bg-gray-900 hover:bg-gray-700 uppercase text-white">
+                  class="add_to_cart">
                   {% if selected_variant.available == false %}
                     sold out
                   {% else %}
@@ -276,12 +282,39 @@
         const newMedia = html.getElementById(`product_media-${this.dataset.section}`)
   
         if(oldMedia && newMedia) oldMedia.innerHTML = newMedia.innerHTML
+  
+        // update button
+        const oldAvailAble = document.getElementById(`availability-${this.dataset.section}`)
+        const newAvailAble = html.getElementById(`availability-${this.dataset.section}`)
+  
         
+  
+        if(oldAvailAble && newAvailAble) oldAvailAble.innerHTML = newAvailAble.innerHTML
+        
+        // update addtocart button
+        const addToCart = document.getElementById(`addtocart-${this.dataset.section}`)
+        //  id="inventory_quantity-{{ section.id }}"
+        const newInventoryQuantity = html.getElementById(`inventory_quantity-${this.dataset.section}`)
+        const oldInventoryQuantity = document.getElementById(`inventory_quantity-${this.dataset.section}`)
+  
+        
+  
+        if(parseInt(newInventoryQuantity.value) <= 0 ){
+          addToCart.innerText = "SOLD OUT"
+          addToCart.disabled = true
+         
+        }else{
+          addToCart.innerText = "Add to cart"
+          addToCart.disabled = false
+        }
+  
+        
+        
+  
   
        })
   
-      }
-      
+      }     
   
       // # class ends
     }

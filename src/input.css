@@ -19,3 +19,12 @@
     @apply hover:scale-105 transition-transform duration-1000;
   }
 }
+
+@layer utilities {
+  .add_to_cart {
+    @apply w-full p-4 border-2 bg-gray-900 hover:bg-gray-700 uppercase text-white;
+  }
+  .add_to_cart:disabled {
+    @apply w-full p-4 border-2 bg-gray-500 cursor-not-allowed uppercase text-white;
+  }
+}

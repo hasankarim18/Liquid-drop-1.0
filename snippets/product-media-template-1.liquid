@@ -3,7 +3,7 @@
     <h2 class="text-xm text-gray-400">{{ template }} / product-template-1 / product-media-template-1</h2>
     {% comment %} laptop mediao view {% endcomment %}
     <div class="featured_image">
-      <div class="text-3xl my-6">
+      <div class="text-3xl my-6 overflow-hidden">
         <img
           id="product-feature-image-{{ section.id }}"
           width=""
@@ -21,13 +21,14 @@
           {% case media.media_type %}
             {% when 'image' %}
               <li
+                data-image-magnify-container
                 data-media-type="image"
                 data-product-modal
                 data-media-src="{{ media.src |  image_url}}"
                 class="swiper-slide cursor-pointer"
-                class=""
+                class="overflow-hidden"
                 data-media-id="{{ media.id }}">
-                {{ media | image_url: width: 2048, height: 2048 | image_tag: class: 'cursor-zoom-in' }}
+                {{ media | image_url: width: 2048, height: 2048 | image_tag: class: 'cursor-zoom-in image-magnify' }}
               </li>
             {% when 'external_video' %}
               <li class="" data-media-id="{{ media.id }}">

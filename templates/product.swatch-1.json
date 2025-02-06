@@ -9,10 +9,10 @@
  */
 {
   "sections": {
-    "product_template_2": {
-      "type": "product-template-2",
+    "product_template_swatch-1": {
+      "type": "product-template-swatch-1",
       "settings": {}
     }
   },
-  "order": ["product_template_2"]
+  "order": ["product_template_swatch-1"]
 }

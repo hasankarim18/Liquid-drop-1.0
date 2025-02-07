@@ -11,10 +11,29 @@
   "sections": {
     "product_template_swatch-1": {
       "type": "product-template-swatch-1",
-      "settings": {},
-      "blocks": {},
-      "block_order": []
+      "blocks": {
+        "text_rg9Lmi": {
+          "type": "text",
+          "settings": {
+            "text": "{{ product.vendor }}",
+            "text_style": "body"
+          }
+        },
+        "title_V8rQG3": {
+          "type": "title",
+          "settings": {
+            "text": "{{ product.title }}"
+          }
+        }
+      },
+      "block_order": [
+        "text_rg9Lmi",
+        "title_V8rQG3"
+      ],
+      "settings": {}
     }
   },
-  "order": ["product_template_swatch-1"]
+  "order": [
+    "product_template_swatch-1"
+  ]
 }

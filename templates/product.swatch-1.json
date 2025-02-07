@@ -18,10 +18,15 @@
             "text": "{{ product.vendor }}",
             "text_style": "body"
           }
+        },
+        "price_UKj4dh": {
+          "type": "price",
+          "settings": {}
         }
       },
       "block_order": [
-        "text_rg9Lmi"
+        "text_rg9Lmi",
+        "price_UKj4dh"
       ],
       "settings": {}
     }

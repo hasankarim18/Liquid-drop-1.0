@@ -14,18 +14,19 @@
 <div class="my_container">
   <div class="grid grid-cols-1 md:grid-cols-2">
     <div class="product-media">
-      {% render 'product-media-template-swatch-1'
-        , product: product
-        , selected_variant: selected_variant
-        , product_feature_image: product_feature_image %}
+      {% render 'product-media-template-swatch-1',
+        product: product,
+        selected_variant: selected_variant,
+        product_feature_image: product_feature_image
+      %}
     </div>
     <div class="my_product-detail relative">
-      {% form 'product'
-        , product %}
+      {% form 'product', product %}
         <input
           type="hidden"
           name="id"
-          value="{{ product.selected_or_first_available_variant.id }}">
+          value="{{ product.selected_or_first_available_variant.id }}"
+        >
         <div class="sticky block top-0 left-0 hero-content  p-10 w-full">
           {% comment %}  {% endcomment %}
           {% comment %} #vendor {% endcomment %}
@@ -40,7 +41,7 @@
             {%- liquid
               assign rating = product.metafields.custom.product_rating
             -%}
-            <h2 class="text-sm"> Rating {{ rating.value  }}</h2>
+            <h2 class="text-sm">Rating {{ rating.value }}</h2>
           </div>
           <div class="mb-4"></div>
           <div class="mb-4"></div>
@@ -49,119 +50,96 @@
           {% comment %} #add to cart {% endcomment %}
           <div class="cart_actions">
             <div class="mb-4">
-
               <button
                 {% unless selected_variant.available %}
-                disabled
+                  disabled
                 {% endunless %}
                 class="uppercase add_to_cart"
-                type="submit">
-
+                type="submit"
+              >
                 {% if selected_variant.available %}
                   Add to cart
                 {% else %}
                   sold out
                 {% endif %}
               </button>
-
             </div>
             {% if selected_variant.available %}
               <div class="mb-4">
                 {{ form | payment_button }}
               </div>
-
             {% endif %}
 
-          {% comment %} cart action {% endcomment %}
+            {% comment %} cart action {% endcomment %}
           </div>
         </div>
-
       {% endform %}
     </div>
   </div>
 </div>
 
 {% schema %}
-  {
-    "name": "Product template Swatch 1",
-    "tag": "section",
-    "settings": [],
-    "blocks": [
-      {
-        "type": "@app"       
-      },
-      {
-        "type": "text",
-        "name":"vendor name",
-        "settings": [
-          {
-            "type": "inline_richtext",
-            "id": "text",
-            "default":"Vendor",
-            "label": "Vendor Name"
-          },
-          {
-            "type": "select",
-            "id": "text_style",
-            "options": [
-              {
-                "value": "body",
-                "label": "Body"
-              },
-              {
-                "value": "capitalize",
-                "label": "capitalize"
-              },
-              {
-                "value": "uppercase",
-                "label": "subtitle"
-              }
-            ],
-            "default":"body",
-            "label": "Text style"
-          }
-        ]
-      },
-      {
-        "type": "title",
-        "name":"title",
-        "limit": 1
-      },
-      {
-        "type": "price",
-        "name":"price",
-        "limit": 1
-      },
-      {
-        "type": "sku",
-        "name":"Sku Name",
-        "limit": 1,
-        "settings": [          
-          {
-            "type": "select",
-            "id": "text_style",
-            "options": [
-              {
-                "value": "body",
-                "label": "Body"
-              },
-              {
-                "value": "capitalize",
-                "label": "capitalize"
-              },
-              {
-                "value": "uppercase",
-                "label": "subtitle"
-              }
-            ],
-            "default":"body",
-            "label": "Text style"
-          }
-        ]
-      },
-      {
-      "type": "inventory",
-      "name": "Inventory",
+{
+  "name": "Product template Swatch 1",
+  "tag": "section",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "@app"
+    },
+    {
+      "type": "text",
+      "name":"vendor name",
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "id": "text",
+          "default":"Vendor",
+          "label": "Vendor Name"
+        },
+        {
+          "type": "select",
+          "id": "text_style",
+          "options": [
+            {
+              "value": "body",
+              "label": "Body"
+            },
+            {
+              "value": "capitalize",
+              "label": "capitalize"
+            },
+            {
+              "value": "uppercase",
+              "label": "subtitle"
+            }
+          ],
+          "default":"body",
+          "label": "Text style"
+        }
+      ]
+    },
+    {
+      "type": "title",
+      "name":"title",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "default":"Shop Name",
+          "label": "Shop Name"
+        }
+      ]
+    },
+    {
+      "type": "price",
+      "name":"price",
+      "limit": 1
+    },
+    {
+      "type": "sku",
+      "name":"Sku Name",
       "limit": 1,
       "settings": [
         {
@@ -170,147 +148,174 @@
           "options": [
             {
               "value": "body",
-              "label": "body"
+              "label": "Body"
             },
             {
-              "value": "subtitle",
-              "label": "subtitle"
+              "value": "capitalize",
+              "label": "capitalize"
             },
             {
               "value": "uppercase",
-              "label": "uppercase"
+              "label": "subtitle"
             }
           ],
-          "default": "body",
+          "default":"body",
           "label": "Text style"
-        },
-        {
-          "type": "range",
-          "id": "inventory_threshold",
-          "label": "inventory threshold",
-          "min": 0,
-          "max": 100,
-          "step": 1,
-          "info": "threshold info",
-          "default": 10
-        },
-        {
-          "type": "checkbox",
-          "id": "show_inventory_quantity",
-          "label": "show inventory quantity",
-          "default": true
         }
       ]
-     },
-     {
-      "type": "variant_picker",
-      "name":"Variant Picker",
-      "limit": 1,
-      "settings": [
-        {
-          "type": "select",
-          "id": "picker_type",
-          "options": [
-            {
-              "label": "dropdown",
-              "value": "dropdown"
-            },
-            {
-              "label":"Swatch",
-              "value": "swatch"
-            }
-          ],
-          "label": "Variant Picker type",
-          "default":"swatch"
-        }
-      ]
-     },
-     {
-      "type": "buy_buttons",
-      "name":"Buy Buttons",
-      "limit": 1,
-      "settings": [
-        {
-          "type": "checkbox",
-          "id": "show_dynamic_checkout",
-          "default":true,
-          "label": "Show Dynamic Checkout",
-          "info":"Using the payment methods available on your store, customers see their preferred option, like PayPal or Apple Pay"
-        }
-      ]
-     },
-     {
-      "type": "description",
-      "name":"Description",
-      "limit": 1
-     },
-     {
-      "type": "share",
-      "name":"Share",
-      "limit": 1,
-      "settings": []
-     },
-     {
-      "type": "custom_liquid",
-      "name":"Custom Liquid",
-      "settings": [
-        {
-          "type": "liquid",
-          "id": "custom_liquid",
-          "label": "Custom Liquid",
-          "info": "Write your custom liquid"
-        }
-      ]
-     },
-     {
-      "type": "collapsible_tab",
-      "name":"Collapsible tab",
-      "settings": [
-      ]
-     },
-     {
-      "type": "popup",
-      "name":"Pop up",
-      "settings": [
-        {
-          "type": "text",
-          "id": "text",
-          "default":"Popup title",
-          "label": "Popup title"
-        },
-        {
-          "type": "page",
-          "id": "page",
-          "label": "Page Content"
-        }
-      ]
-     },
-     {
-      "type": "rating",
-      "name": "Rating",
-      "limit": 1,
-      "settings": [
-        {
-          "type": "metaobject",
-          "id": "metaobject",
-          "label": "Materials",
-          "metaobject_type": "shopify--material"
-          
-        }
-      ]
-    }
-    ],
-    "presets": [
+    },
+    {
+    "type": "inventory",
+    "name": "Inventory",
+    "limit": 1,
+    "settings": [
       {
-        "name": "Product template Swatch 1",
-        "settings": {}
+        "type": "select",
+        "id": "text_style",
+        "options": [
+          {
+            "value": "body",
+            "label": "body"
+          },
+          {
+            "value": "subtitle",
+            "label": "subtitle"
+          },
+          {
+            "value": "uppercase",
+            "label": "uppercase"
+          }
+        ],
+        "default": "body",
+        "label": "Text style"
+      },
+      {
+        "type": "range",
+        "id": "inventory_threshold",
+        "label": "inventory threshold",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "info": "threshold info",
+        "default": 10
+      },
+      {
+        "type": "checkbox",
+        "id": "show_inventory_quantity",
+        "label": "show inventory quantity",
+        "default": true
+      }
+    ]
+   },
+   {
+    "type": "variant_picker",
+    "name":"Variant Picker",
+    "limit": 1,
+    "settings": [
+      {
+        "type": "select",
+        "id": "picker_type",
+        "options": [
+          {
+            "label": "dropdown",
+            "value": "dropdown"
+          },
+          {
+            "label":"Swatch",
+            "value": "swatch"
+          }
+        ],
+        "label": "Variant Picker type",
+        "default":"swatch"
+      }
+    ]
+   },
+   {
+    "type": "buy_buttons",
+    "name":"Buy Buttons",
+    "limit": 1,
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "show_dynamic_checkout",
+        "default":true,
+        "label": "Show Dynamic Checkout",
+        "info":"Using the payment methods available on your store, customers see their preferred option, like PayPal or Apple Pay"
+      }
+    ]
+   },
+   {
+    "type": "description",
+    "name":"Description",
+    "limit": 1
+   },
+   {
+    "type": "share",
+    "name":"Share",
+    "limit": 1,
+    "settings": []
+   },
+   {
+    "type": "custom_liquid",
+    "name":"Custom Liquid",
+    "settings": [
+      {
+        "type": "liquid",
+        "id": "custom_liquid",
+        "label": "Custom Liquid",
+        "info": "Write your custom liquid"
+      }
+    ]
+   },
+   {
+    "type": "collapsible_tab",
+    "name":"Collapsible tab",
+    "settings": [
+    ]
+   },
+   {
+    "type": "popup",
+    "name":"Pop up",
+    "settings": [
+      {
+        "type": "text",
+        "id": "text",
+        "default":"Popup title",
+        "label": "Popup title"
+      },
+      {
+        "type": "page",
+        "id": "page",
+        "label": "Page Content"
+      }
+    ]
+   },
+   {
+    "type": "rating",
+    "name": "Rating",
+    "limit": 1,
+    "settings": [
+      {
+        "type": "metaobject",
+        "id": "metaobject",
+        "label": "Materials",
+        "metaobject_type": "shopify--material"
+
       }
     ]
   }
+  ],
+  "presets": [
+    {
+      "name": "Product template Swatch 1",
+      "settings": {}
+    }
+  ]
+}
 {% endschema %}
 
 <script>
-   document.addEventListener('DOMContentLoaded', () => {
-  
-   })
+  document.addEventListener('DOMContentLoaded', () => {
+
+  })
 </script>

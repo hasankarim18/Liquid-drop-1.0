@@ -11,7 +11,9 @@
   "sections": {
     "product_template_swatch-1": {
       "type": "product-template-swatch-1",
-      "settings": {}
+      "settings": {},
+      "blocks": {},
+      "block_order": []
     }
   },
   "order": ["product_template_swatch-1"]

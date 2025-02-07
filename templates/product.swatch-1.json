@@ -28,12 +28,72 @@
         "price_UKj4dh": {
           "type": "price",
           "settings": {}
+        },
+        "sku_m4Gemb": {
+          "type": "sku",
+          "settings": {
+            "text_style": "body"
+          }
+        },
+        "inventory_FYAf4F": {
+          "type": "inventory",
+          "settings": {
+            "text_style": "body",
+            "inventory_threshold": 10,
+            "show_inventory_quantity": true
+          }
+        },
+        "popup_7P7kKY": {
+          "type": "popup",
+          "settings": {
+            "text": "Size Chart",
+            "page": ""
+          }
+        },
+        "variant_picker_XHaJVK": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "swatch"
+          }
+        },
+        "buy_buttons_mTddHp": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": true
+          }
+        },
+        "description_CXrTfR": {
+          "type": "description",
+          "settings": {}
+        },
+        "rating_F4VRTF": {
+          "type": "rating",
+          "settings": {
+            "metaobject": ""
+          }
+        },
+        "collapsible_tab_tTNPKG": {
+          "type": "collapsible_tab",
+          "settings": {}
+        },
+        "share_FWezMz": {
+          "type": "share",
+          "settings": {}
         }
       },
       "block_order": [
         "text_rg9Lmi",
         "title_t9TTGr",
-        "price_UKj4dh"
+        "price_UKj4dh",
+        "sku_m4Gemb",
+        "inventory_FYAf4F",
+        "popup_7P7kKY",
+        "variant_picker_XHaJVK",
+        "buy_buttons_mTddHp",
+        "description_CXrTfR",
+        "rating_F4VRTF",
+        "collapsible_tab_tTNPKG",
+        "share_FWezMz"
       ],
       "settings": {}
     }

@@ -8,15 +8,15 @@
  * ------------------------------------------------------------
  */
 {
-  "sections": {
-    "product_template_1": {
-      "type": "product-template-1",
-      "settings": {
-        "currency_style": "money"
-      }
-    }
-  },
   "order": [
     "product_template_1"
-  ]
+  ],
+  "sections": {
+    "product_template_1": {
+      "settings": {
+        "currency_style": "money"
+      },
+      "type": "product-template-1"
+    }
+  }
 }
